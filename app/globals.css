@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+@layer utilities {
+  .bg-gradient-radial {
+    background: linear-gradient(to right, transparent 10%, rgba(255, 255, 255, 0.6) 50%, transparent 90%);
+  }
+}
