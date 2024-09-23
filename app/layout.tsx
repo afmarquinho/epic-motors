@@ -1,4 +1,3 @@
-import { Providers } from "@/components/Providers";
 import "./globals.css";
 
 export default function RootLayout({
@@ -8,9 +7,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <Providers>
-        <body className={`bg-slate-100`}>{children}</body>
-      </Providers>
+      <body className={`bg-slate-100`}>{children}</body>
     </html>
   );
 }

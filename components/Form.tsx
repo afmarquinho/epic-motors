@@ -2,24 +2,23 @@
 
 import generateRadomCode from "@/utils/utils";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { DataApiType, FormDataType } from "../utils";
+import { DataApiType, FormDataType } from "../utils/types";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { departamentosColombia as departamentos } from "../bd/departamentos";
-import { useStore } from "@/store";
-// import { addUserData } from "@/redux/slice";
-// import { useDispatch } from "react-redux";
+import { useStore } from "@/utils/store";
+import Link from "next/link";
 
 const apiUrl = "https://www.datos.gov.co/resource/xdk5-pm3f.json";
 
 const Form = () => {
   //? VARIABLES AND GLOBAL STATES
-  const setUserData = useStore((state) => state.setUserData);
-  // const dispatch = useDispatch<AppDispatch>()
 
+  const setUserData = useStore((state)=> state.setUserData)
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<FormDataType>();
 
@@ -37,18 +36,18 @@ const Form = () => {
     const filteredCities = departamentosArray
     .filter((item) => item.departamento === e.target.value)
     .map((item) => item.municipio);
-
   setCitiesArray(filteredCities); 
   };
 
   const onSubmit: SubmitHandler<FormDataType> = (data) => {
     const code = generateRadomCode(8);
-    const updatedUser = {
+    const user = {
       ...data,
       code,
     };
-    setUserData(updatedUser);
-    window.location.href = `/${code}-${data.id}`;
+    setUserData(user)
+    window.location.href = `/${code}-${data.id}-${data.name}-${data.lastName}`;
+    reset()
   };
 
   useEffect(() => {
@@ -235,9 +234,9 @@ const Form = () => {
             <div className={`text-xs`}>
               Autorizo el tratamiento de mis datos de acuerdo con la finalidad
               establecida en la política de protección de datos personales.{" "}
-              <button className={`text-blue-700 font-medium`}>
+              <Link className={`text-blue-700 font-medium`} href={"/politica-de-tratamiento-datos-personales"}>
                 Haga clic aquí
-              </button>
+              </Link>
             </div>
           </div>
           <div className={`flex w-full pt-5`}>
