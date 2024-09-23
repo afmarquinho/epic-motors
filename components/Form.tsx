@@ -77,7 +77,10 @@ const Form = () => {
       >
         <p className={`text-xs`}>
           <span className={`text-red-500 font-medium`}>*</span> Campos
-          Obligatorios
+          Obligatorios.
+        </p>
+        <p className={`text-xs`}>
+          <span className={`text-red-500 font-medium`}>**</span> Ver téminos y condiciones del sorteo.
         </p>
         <div className={`w-full bg-white p-8 mt-5 space-y-2`}>
           {(errors.city ||

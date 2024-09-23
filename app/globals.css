@@ -17,6 +17,15 @@
       transparent 90%
     );
   }
+  .bg-gradient-layer {
+    background: linear-gradient(
+      to right,
+
+      rgba(0, 0, 0, 0.4),
+      transparent,
+      rgba(0, 0, 0, 0.4)
+    );
+  }
 }
 
 input[type="number"] {

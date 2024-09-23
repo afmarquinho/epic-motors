@@ -26,8 +26,8 @@ const RegistrationSuccessful = ({ params }: { params: { code: string } }) => {
             </p>
             <p>Sortearemos 12 carros 0 km, uno cada mes.</p>
             <p>
-              No olvides revisar las redes nuestras redes sociales, y mantenerte
-              con contacto con nostros.
+              No olvides revisar nuestras redes sociales, para mantenerte
+              informado.
             </p>
             <p>
               Tambien tenemos muchos premios para nuestros clientes, guarda tu
