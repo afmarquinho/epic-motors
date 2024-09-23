@@ -1,8 +1,20 @@
+"use client";
+
 import Image from "next/image";
 import logo from "../../public/images/logo/logo.png";
 import Link from "next/link";
+import { useStore } from "@/store";
+import { useEffect } from "react";
 
 const RegistrationSuccessful = () => {
+  //? VARIABLES AND GLOBAL STATES
+  const userData = useStore((state) => state.userData);
+
+  useEffect(() => {
+    console.log(userData);
+  }, [userData]);
+
+  //? FUNCTIONS
   return (
     <>
       <div
@@ -22,8 +34,8 @@ const RegistrationSuccessful = () => {
         </h1>
         <div className={`text-center my-10 space-y-2 text-lg`}>
           <p>
-            <span className={`uppercase font-bold `}>John Doe</span>, ya estás
-            registrado para participar en el sorteo.
+            <span className={`uppercase font-bold `}>{userData?.name}</span>, ya
+            estás registrado para participar en el sorteo.
           </p>
           <p>Sortearemos 12 carros 0 km, uno cada mes.</p>
           <p>
@@ -32,7 +44,8 @@ const RegistrationSuccessful = () => {
           </p>
           <p>
             Tambien tenemos muchos premios pra nuestros clientes, guarda tu
-            código del sorteo <span className={`font-bold uppercase`}>xxx124</span>.
+            código del sorteo{" "}
+            <span className={`font-bold uppercase`}>{userData?.code}</span>.
           </p>
         </div>
       </div>
