@@ -19,7 +19,7 @@ services:
     build: 
       context: .
       dockerfile: Dockerfile
-    image: afmarquinhos/epic-motors-app:1.0.2
+    image: afmarquinhos/epic-motors-app:1.0.3
     ports:
       - "3000:3000"
     volumes:
