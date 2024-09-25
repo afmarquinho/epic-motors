@@ -9,30 +9,19 @@ Este proyecto ees un aplicación con Next.Js configurada para ejecutarse con doc
 - Docker
 - Docker Compose
 
-## Instrucciones para ejecutar con docker hub
+## Clonar repositorio
 
-### Paso 1: Crear archivo `docker-compose.yml`
-Crea un archivo `docker-compose.yml` con el siguiente contenido:
-```yaml
-services:
-  app:
-    build: 
-      context: .
-      dockerfile: Dockerfile
-    image: afmarquinhos/epic-motors-app:1.0.3
-    ports:
-      - "3000:3000"
-    volumes:
-      - .:/app
-    environment:
-      - NODE_ENV=development
+```bash
+git clone https://github.com/afmarquinho/epic-motors.git
 ```
-### Paso 2: Levantar los conetenedores
+
+### Levantar los conetenedores
 Navega al directorio donde se encuentra el archivo `docker-compose.yml` y levanta los contenedores usando docker compose.
 ```bash
+docker compose build
 docker compose up -d
 ```
-### Paso 3: Accede a la aplicaión
+### Accede a la aplicaión
 Una vez los contenedores estén funcionando la aplicación estará disponible en "hhtp://localhost:3000"
 
 ## Dependencias
