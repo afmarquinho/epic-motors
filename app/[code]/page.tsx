@@ -3,7 +3,7 @@
 import Link from "next/link";
 import SectionWrapper from "@/components/SectionWrapper";
 
-const RegistrationSuccessful = ({ params }: { params: { code: string } }) => {
+const SuccessfulRegistration = ({ params }: { params: { code: string } }) => {
   //? VARIABLES AND GLOBAL STATES
   const param = params.code.split("-");
   const code = param[0];
@@ -41,7 +41,7 @@ const RegistrationSuccessful = ({ params }: { params: { code: string } }) => {
         >
           <Link
             className={`bg-red-500 px-5 py-2 hover:text-white hover:bg-red-600 transition-all ease-in`}
-            href={"#"}
+            href={"/"}
           >
             Ir al Inicio
           </Link>
@@ -50,4 +50,4 @@ const RegistrationSuccessful = ({ params }: { params: { code: string } }) => {
     </>
   );
 };
-export default RegistrationSuccessful;
+export default SuccessfulRegistration;

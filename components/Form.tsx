@@ -8,13 +8,14 @@ import axios from "axios";
 import { departamentosColombia as departamentos } from "../bd/departamentos";
 import { useStore } from "@/utils/store";
 import Link from "next/link";
+import ErrorMessage from "./ErrorMessage";
 
 const apiUrl = "https://www.datos.gov.co/resource/xdk5-pm3f.json";
 
 const Form = () => {
   //? VARIABLES AND GLOBAL STATES
 
-  const setUserData = useStore((state)=> state.setUserData)
+  const setUserData = useStore((state) => state.setUserData);
   const {
     register,
     handleSubmit,
@@ -34,9 +35,9 @@ const Form = () => {
       return;
     }
     const filteredCities = departamentosArray
-    .filter((item) => item.departamento === e.target.value)
-    .map((item) => item.municipio);
-  setCitiesArray(filteredCities); 
+      .filter((item) => item.departamento === e.target.value)
+      .map((item) => item.municipio);
+    setCitiesArray(filteredCities);
   };
 
   const onSubmit: SubmitHandler<FormDataType> = (data) => {
@@ -45,9 +46,9 @@ const Form = () => {
       ...data,
       code,
     };
-    setUserData(user)
+    setUserData(user);
     window.location.href = `/${code}-${data.id}-${data.name}-${data.lastName}`;
-    reset()
+    reset();
   };
 
   useEffect(() => {
@@ -80,27 +81,11 @@ const Form = () => {
           Obligatorios.
         </p>
         <p className={`text-xs`}>
-          <span className={`text-red-500 font-medium`}>**</span> Ver téminos y condiciones del sorteo.
+          <span className={`text-red-500 font-medium`}>**</span> Ver téminos y
+          condiciones del sorteo.
         </p>
-        <div className={`w-full bg-white p-8 mt-5 space-y-2`}>
-          {(errors.city ||
-            errors.dep ||
-            errors.email ||
-            errors.id ||
-            errors.lastName ||
-            errors.name ||
-            errors.phone) && (
-            <p className={`bg-red-200 text-xs p-2 text-center`}>
-              Los campos marcados con arterísco ({" "}
-              <span className="text-red-600">*</span> ) son obligatorios
-            </p>
-          )}
-          {errors.habeasData && (
-            <p className={`bg-red-200 text-xs p-2 text-center`}>
-              {errors.habeasData.message}
-            </p>
-          )}
 
+        <div className={`w-full bg-white p-8 mt-5 space-y-2`}>
           {/* //? Name and last name fields*/}
           <div className={`flex flex-col md:flex-row gap-2 md:gap-4`}>
             {/* //? Name */}
@@ -113,8 +98,14 @@ const Form = () => {
                 className={`outline-none focus:outline-none border border-gray-400 p-1 rounded-md`}
                 {...register("name", {
                   required: "Nombre es obligatorio",
+                  validate: {
+                    onlyString: (value) =>
+                      /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/.test(value) ||
+                      "El campo Nombre solo permite letras",
+                  },
                 })}
               />
+              {errors.name && <ErrorMessage message={errors.name.message} />}
             </div>
             <div className={`flex flex-col w-full md:w-1/2`}>
               <label htmlFor="">
@@ -125,8 +116,14 @@ const Form = () => {
                 className={`outline-none focus:outline-none border border-gray-400 p-1 rounded-md`}
                 {...register("lastName", {
                   required: "Apellido es obligatorio",
+                  validate: {
+                    onlyString: (value) =>
+                      /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/.test(value) ||
+                      "El campo Apellido solo permite letras",
+                  },
                 })}
               />
+              {errors.lastName && <ErrorMessage message={errors.lastName.message} />}
             </div>
           </div>
           {/* //? ID and state fileds*/}
@@ -153,6 +150,7 @@ const Form = () => {
                   MozAppearance: "textfield",
                 }}
               />
+              {errors.id && <ErrorMessage message={errors.id.message} />}
             </div>
             <div className={`flex flex-col w-full md:w-1/2`}>
               <label htmlFor="dep">
@@ -173,6 +171,7 @@ const Form = () => {
                   </option>
                 ))}
               </select>
+              {errors.dep && <ErrorMessage message={errors.dep.message} />}
             </div>
           </div>
           {/* //? City and phone*/}
@@ -196,6 +195,7 @@ const Form = () => {
                   </option>
                 ))}
               </select>
+              {errors.city && <ErrorMessage message={errors.city.message} />}
             </div>
             <div className={`flex flex-col w-full md:w-1/2`}>
               <label htmlFor="">
@@ -206,8 +206,14 @@ const Form = () => {
                 className={`outline-none focus:outline-none border border-gray-400 p-1 rounded-md`}
                 {...register("phone", {
                   required: "Teléfono es obligatorio",
+                  validate: {
+                    onlyNumeric: (value) =>
+                      /^[0-9]+$/.test(value) ||
+                      "El campo celular solo permite números",
+                  },
                 })}
               />
+              {errors.phone && <ErrorMessage message={errors.phone.message} />}
             </div>
           </div>
           {/* //? email*/}
@@ -220,9 +226,16 @@ const Form = () => {
                 type="text"
                 className={`outline-none focus:outline-none border border-gray-400 p-1 rounded-md`}
                 {...register("email", {
-                  required: "correo electrónico es obligatorio",
+                  required: "Correo electrónico es obligatorio",
+                  validate: {
+                    validEmail: (value) =>
+                      /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(
+                        value
+                      ) || "Digite un correo válido",
+                  },
                 })}
               />
+              {errors.email && <ErrorMessage message={errors.email.message} />}
             </div>
             <div className={`flex flex-col w-full md:w-1/2`}></div>
           </div>
@@ -237,11 +250,15 @@ const Form = () => {
             <div className={`text-xs`}>
               Autorizo el tratamiento de mis datos de acuerdo con la finalidad
               establecida en la política de protección de datos personales.{" "}
-              <Link className={`text-blue-700 font-medium`} href={"/politica-de-tratamiento-datos-personales"}>
+              <Link
+                className={`text-blue-700 font-medium`}
+                href={"/personal-data-processing-policy"}
+              >
                 Haga clic aquí
               </Link>
             </div>
           </div>
+          {errors.habeasData && <ErrorMessage message={errors.habeasData.message} />}
           <div className={`flex w-full pt-5`}>
             <input
               type="submit"
