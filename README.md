@@ -34,3 +34,13 @@ docker compose up -d
 ```
 ### Paso 3: Accede a la aplicaión
 Una vez los contenedores estén funcionando la aplicación estará disponible en "hhtp://localhost:3000"
+
+## Dependencias
+
+- **axios**: Utilizado para realizar solicitudes a la Api de los departamentos y ciudades de Colombia.
+- **lucide-react**: Proporciona los íconos utilizados en la UI.
+- **next**: Framework requerido en las especificaciones.
+- **react**: La biblioteca principal.
+- **react-hook-form**: Librería utilizada para gestionar formulariosy su validación.
+- **zustand**: Librería utilizada para la gestión de estado global en la aplicación.
+
