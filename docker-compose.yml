@@ -1,0 +1,12 @@
+services:
+  app:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    image: afmarquinhos/epic-motors-app:1.0.2
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+    environment:
+      - NODE_ENV=development
